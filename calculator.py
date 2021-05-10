@@ -40,9 +40,9 @@ To submit your homework:
 
 
 """
-import pysnooper
+# import pysnooper
 
-@pysnooper.snoop()
+# @pysnooper.snoop()
 def add(*args):
     """ Returns a STRING with the sum of the arguments """
 
@@ -101,6 +101,7 @@ def resolve_path(path):
     'subtract': subtract,
     'multiply': multiply,
     'divide': divide,
+    '': index
     }
 
     path = path.strip('/').split('/')
@@ -111,7 +112,15 @@ def resolve_path(path):
 
     return func, args
 
-@pysnooper.snoop()
+def index():
+    body = 'To perform calculations, enter the name operation you would like '
+    body += 'to perform followed by a \\. Then enter the numbers you would like to perform'
+    body += 'the operation on, separated by a \\'
+    body += '\r\n'
+    body += 'You may add, subtract, mulitply, and divide'
+    return body
+
+# @pysnooper.snoop()
 def application(environ, start_response):
     # TODONE: Your application code from the book database
     # work here as well! Remember that your application must
