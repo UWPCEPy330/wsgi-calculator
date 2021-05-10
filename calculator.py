@@ -48,10 +48,10 @@ def add(*args):
 
     # TODONE: Fill sum with the correct value, based on the
     # args provided.
-    args = map(int, args)
-    sum = sum(args)
 
-    return str(sum)
+    my_sum = sum(map(int,args))
+
+    return str(my_sum)
 
 # TODONE: Add functions for handling more arithmetic operations.
 
