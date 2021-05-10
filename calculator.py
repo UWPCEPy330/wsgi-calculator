@@ -52,7 +52,7 @@ def add(*args):
 
     return str(sum)
 
-# TODO: Add functions for handling more arithmetic operations.
+# TODONE: Add functions for handling more arithmetic operations.
 
 
 def multiply(*args):
@@ -85,12 +85,13 @@ def resolve_path(path):
     arguments.
     """
 
-    # TODO: Provide correct values for func and args. The
+    # TODONE: Provide correct values for func and args. The
     # examples provide the correct *syntax*, but you should
     # determine the actual values of func and args using the
     # path.
-    func = add
-    args = ['25', '32']
+    path = path.split('/')
+    func = path[0]
+    args = path[1:]
 
     return func, args
 
