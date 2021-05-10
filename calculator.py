@@ -50,7 +50,7 @@ def add(*args):
     args = map(int, args)
     sum = sum(args)
 
-    return sum
+    return str(sum)
 
 # TODO: Add functions for handling more arithmetic operations.
 
@@ -63,7 +63,7 @@ def multiply(*args):
     for arg in args:
         product *= int(arg)
 
-    return product
+    return str(product)
 
 
 def divide(*args):
@@ -77,7 +77,7 @@ def divide(*args):
     for arg in args[2:]:
         quotient /= int(arg)
 
-    return quotient
+    return str(quotient)
 
 def resolve_path(path):
     """
