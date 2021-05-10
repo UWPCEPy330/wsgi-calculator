@@ -47,6 +47,7 @@ def add(*args):
 
     # TODONE: Fill sum with the correct value, based on the
     # args provided.
+    args = map(int, args)
     sum = sum(args)
 
     return sum
@@ -60,9 +61,23 @@ def multiply(*args):
     product = 1
 
     for arg in args:
-        product *= arg
+        product *= int(arg)
 
     return product
+
+
+def divide(*args):
+    """ Returns a STRING with the quotient of the arguments """
+
+
+    initial_dividend = int(args[0])
+    initial_divisor = int(args[1])
+    quotient = initial_dividend/initial_divisor
+
+    for arg in args[2:]:
+        quotient /= int(arg)
+
+    return quotient
 
 def resolve_path(path):
     """
