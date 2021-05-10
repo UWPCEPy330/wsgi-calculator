@@ -47,7 +47,7 @@ def add(*args):
 
     # TODO: Fill sum with the correct value, based on the
     # args provided.
-    sum = "0"
+    sum = sum(args)
 
     return sum
 
