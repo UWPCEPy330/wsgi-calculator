@@ -45,13 +45,24 @@ To submit your homework:
 def add(*args):
     """ Returns a STRING with the sum of the arguments """
 
-    # TODO: Fill sum with the correct value, based on the
+    # TODONE: Fill sum with the correct value, based on the
     # args provided.
     sum = sum(args)
 
     return sum
 
 # TODO: Add functions for handling more arithmetic operations.
+
+
+def multiply(*args):
+    """ Returns a STRING with the product of the arguments """
+
+    product = 1
+
+    for arg in args:
+        product *= arg
+
+    return product
 
 def resolve_path(path):
     """
