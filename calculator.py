@@ -40,8 +40,9 @@ To submit your homework:
 
 
 """
+import pysnooper
 
-
+@pysnooper.snoop()
 def add(*args):
     """ Returns a STRING with the sum of the arguments """
 
@@ -54,6 +55,15 @@ def add(*args):
 
 # TODONE: Add functions for handling more arithmetic operations.
 
+def subtract(*args):
+    """ Returns a STRING with the difference of the arguments """
+
+
+    a = int(args[0])
+    b = int(args[1])
+    difference = a - b
+
+    return str(difference)
 
 def multiply(*args):
     """ Returns a STRING with the product of the arguments """
@@ -70,12 +80,9 @@ def divide(*args):
     """ Returns a STRING with the quotient of the arguments """
 
 
-    initial_dividend = int(args[0])
-    initial_divisor = int(args[1])
-    quotient = initial_dividend/initial_divisor
-
-    for arg in args[2:]:
-        quotient /= int(arg)
+    dividend = int(args[0])
+    divisor = int(args[1])
+    quotient = int(dividend/divisor)
 
     return str(quotient)
 
@@ -89,12 +96,22 @@ def resolve_path(path):
     # examples provide the correct *syntax*, but you should
     # determine the actual values of func and args using the
     # path.
-    path = path.split('/')
+    funcs = {
+    'add': add,
+    'subtract': subtract,
+    'multiply': multiply,
+    'divide': divide,
+    }
+
+    path = path.strip('/').split('/')
     func = path[0]
+    func = funcs[func]
+
     args = path[1:]
 
     return func, args
 
+@pysnooper.snoop()
 def application(environ, start_response):
     # TODONE: Your application code from the book database
     # work here as well! Remember that your application must
