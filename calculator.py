@@ -40,18 +40,51 @@ To submit your homework:
 
 
 """
+# import pysnooper
 
-
+# @pysnooper.snoop()
 def add(*args):
     """ Returns a STRING with the sum of the arguments """
 
-    # TODO: Fill sum with the correct value, based on the
+    # TODONE: Fill sum with the correct value, based on the
     # args provided.
-    sum = "0"
 
-    return sum
+    my_sum = sum(map(int,args))
 
-# TODO: Add functions for handling more arithmetic operations.
+    return str(my_sum)
+
+# TODONE: Add functions for handling more arithmetic operations.
+
+def subtract(*args):
+    """ Returns a STRING with the difference of the arguments """
+
+
+    a = int(args[0])
+    b = int(args[1])
+    difference = a - b
+
+    return str(difference)
+
+def multiply(*args):
+    """ Returns a STRING with the product of the arguments """
+
+    product = 1
+
+    for arg in args:
+        product *= int(arg)
+
+    return str(product)
+
+
+def divide(*args):
+    """ Returns a STRING with the quotient of the arguments """
+
+
+    dividend = int(args[0])
+    divisor = int(args[1])
+    quotient = int(dividend/divisor)
+
+    return str(quotient)
 
 def resolve_path(path):
     """
@@ -59,26 +92,66 @@ def resolve_path(path):
     arguments.
     """
 
-    # TODO: Provide correct values for func and args. The
+    # TODONE: Provide correct values for func and args. The
     # examples provide the correct *syntax*, but you should
     # determine the actual values of func and args using the
     # path.
-    func = add
-    args = ['25', '32']
+    funcs = {
+    'add': add,
+    'subtract': subtract,
+    'multiply': multiply,
+    'divide': divide,
+    '': index
+    }
+
+    path = path.strip('/').split('/')
+    func = path[0]
+    func = funcs[func]
+
+    args = path[1:]
 
     return func, args
 
+def index():
+    body = 'To perform calculations, enter the name operation you would like '
+    body += 'to perform followed by a \\. Then enter the numbers you would like to perform'
+    body += 'the operation on, separated by a \\'
+    body += '\r\n'
+    body += 'You may add, subtract, mulitply, and divide'
+    return body
+
+# @pysnooper.snoop()
 def application(environ, start_response):
-    # TODO: Your application code from the book database
+    # TODONE: Your application code from the book database
     # work here as well! Remember that your application must
     # invoke start_response(status, headers) and also return
     # the body of the response in BYTE encoding.
     #
     # TODO (bonus): Add error handling for a user attempting
     # to divide by zero.
-    pass
+    headers = [("Content-type", "text/html")]
+    try:
+        path = environ.get('PATH_INFO', None)
+        if path is None:
+            raise NameError
+        func, args = resolve_path(path)
+        body = func(*args)
+        status = "200 OK"
+    except NameError:
+        status = "404 Not Found"
+        body = "<h1>Not Found</h1>"
+    except Exception:
+        status = "500 Internal Server Error"
+        body = "<h1>Internal Server Error</h1>"
+        print(traceback.format_exc())
+    finally:
+        headers.append(('Content-length', str(len(body))))
+        start_response(status, headers)
+        return [body.encode('utf8')]
 
 if __name__ == '__main__':
-    # TODO: Insert the same boilerplate wsgiref simple
+    # TODONE: Insert the same boilerplate wsgiref simple
     # server creation that you used in the book database.
-    pass
+    from wsgiref.simple_server import make_server
+    srv = make_server('localhost', 8080, application)
+    srv.serve_forever()
